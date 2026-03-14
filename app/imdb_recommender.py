@@ -1,6 +1,6 @@
 import sys
 import os
-
+import re
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import os
@@ -24,6 +24,7 @@ if st.button("Recommend"):
         st.warning("Please enter a storyline.")
     else:
         results = recommender.recommend(user_input)
+        results["Movie_Name"] = results["Movie_Name"].apply(lambda x: re.sub(r'^\d+\.\s*', '', str(x)))
 
         st.subheader("Top Recommendations")
 
