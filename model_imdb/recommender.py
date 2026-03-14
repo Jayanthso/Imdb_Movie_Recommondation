@@ -12,6 +12,7 @@ class MovieRecommender:
 
     def prepare(self):
         self.df["clean"] = self.df["Storyline"].fillna("").apply(clean_text)
+        self.df["clean"] = [name.split('.',1)[-1] for name in self.Movie_Name]
 
         self.vectorizer = TfidfVectorizer(max_features=50000)
         self.matrix = self.vectorizer.fit_transform(self.df["clean"])
